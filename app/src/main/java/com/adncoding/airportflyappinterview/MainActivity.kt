@@ -18,9 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.adncoding.airportflyappinterview.presentation.air_port_fly.AirPortFlyScreen
 import com.adncoding.airportflyappinterview.presentation.air_port_fly.NavItemState
+import com.adncoding.airportflyappinterview.presentation.free_currency.FreeCurrencyScreen
 import com.adncoding.airportflyappinterview.ui.theme.AirPortFlyAppInterviewTheme
+import com.example.travelappinterview.presentation.Screen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,12 +37,14 @@ class MainActivity : ComponentActivity() {
                 NavItemState(
                     title = stringResource(id = R.string.flight),
                     selectedIcon = painterResource(id = R.drawable.flight),
-                    unselectedIcon = painterResource(id = R.drawable.flight)
+                    unselectedIcon = painterResource(id = R.drawable.flight),
+                    route = Screen.AirPortFlyScreen.route
                 ),
                 NavItemState(
                     title = stringResource(id = R.string.currency),
                     selectedIcon = painterResource(id = R.drawable.currency),
-                    unselectedIcon = painterResource(id = R.drawable.currency)
+                    unselectedIcon = painterResource(id = R.drawable.currency),
+                    route = Screen.FreeCurrencyScreen.route
                 )
             )
 
@@ -45,6 +52,7 @@ class MainActivity : ComponentActivity() {
                 var bottomNavState by rememberSaveable {
                     mutableIntStateOf(0)
                 }
+                val navController = rememberNavController()
                 Scaffold(
                     bottomBar = {
                         NavigationBar(
@@ -53,7 +61,10 @@ class MainActivity : ComponentActivity() {
                             items.forEachIndexed { index, navItemState ->
                                 NavigationBarItem(
                                     selected = bottomNavState == index,
-                                    onClick = { bottomNavState = index },
+                                    onClick = {
+                                        bottomNavState = index
+                                        navController.navigate(navItemState.route)
+                                    },
                                     icon = {
                                         Icon(
                                             modifier = Modifier.size(24.dp),
@@ -71,7 +82,21 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 ) { it
-                    AirPortFlyScreen()
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.AirPortFlyScreen.route
+                    ) {
+                        composable(
+                            route = Screen.AirPortFlyScreen.route
+                        ) {
+                            AirPortFlyScreen()
+                        }
+                        composable(
+                            route = Screen.FreeCurrencyScreen.route
+                        ) {
+                            FreeCurrencyScreen()
+                        }
+                    }
                 }
             }
         }
