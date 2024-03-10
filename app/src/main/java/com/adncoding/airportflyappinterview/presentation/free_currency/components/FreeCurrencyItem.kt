@@ -32,9 +32,11 @@ fun FreeCurrencyItem(
 ) {
     Card(
         modifier = Modifier.padding(
-                horizontal = 16.dp,
-                vertical = 8.dp
-            ).then(borderModifier)
+            start = 16.dp,
+            top = 0.dp,
+            end = 16.dp,
+            bottom = 16.dp
+        ).then(borderModifier)
             .clip(MaterialTheme.shapes.medium)
             .clickable { onItemClick() },
         elevation = CardDefaults.cardElevation(1.dp)

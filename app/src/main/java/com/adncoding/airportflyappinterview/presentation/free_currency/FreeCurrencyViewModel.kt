@@ -11,6 +11,7 @@ import com.adncoding.airportflyappinterview.domain.model.Data
 import com.adncoding.airportflyappinterview.domain.model.FreeCurrency
 import com.adncoding.airportflyappinterview.domain.use_case.GetFreeCurrency
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,6 +27,20 @@ class FreeCurrencyViewModel @Inject constructor(
 
     init {
         loadData(CurrencyCodes.USD)
+        startUpdateTime()
+    }
+
+    private fun startUpdateTime() {
+        viewModelScope.launch {
+            while (true) {
+                _state.value = _state.value.copy(updateTimeSec = 10)
+                for (i in 10 downTo 1) {
+                    delay(1000)
+                    _state.value = _state.value.copy(updateTimeSec = _state.value.updateTimeSec - 1)
+                }
+                loadData(_state.value.baseCurrency)
+            }
+        }
     }
 
     override fun loadData(baseCurrency: String) {

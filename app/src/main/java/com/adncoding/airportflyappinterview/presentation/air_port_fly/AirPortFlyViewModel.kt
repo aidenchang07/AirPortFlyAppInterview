@@ -10,6 +10,7 @@ import com.adncoding.airportflyappinterview.common.Resource
 import com.adncoding.airportflyappinterview.domain.model.AirPortFly
 import com.adncoding.airportflyappinterview.domain.use_case.GetAirPortFly
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -29,8 +30,26 @@ class AirPortFlyViewModel @Inject constructor(
         put(FlyType.DEPARTURE, false)
     }
 
-    fun loadData(flyType: String) {
-        if (isDataLoaded[flyType] == true) return
+    init {
+        startUpdateTime()
+    }
+
+    private fun startUpdateTime() {
+        viewModelScope.launch {
+            while (true) {
+                _state.value = _state.value.copy(updateTimeSec = 10)
+                for (i in 10 downTo 1) {
+                    delay(1000)
+                    _state.value = _state.value.copy(updateTimeSec = _state.value.updateTimeSec - 1)
+                }
+                loadData(FlyType.ARRIVAL, true)
+                loadData(FlyType.DEPARTURE, true)
+            }
+        }
+    }
+
+    fun loadData(flyType: String, forceLoading: Boolean = false) {
+        if (isDataLoaded[flyType] == true && !forceLoading) return
         viewModelScope.launch {
             getAirPortFly(flyType).onEach { result ->
                 when (result) {

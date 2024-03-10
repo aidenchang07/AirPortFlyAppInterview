@@ -45,5 +45,6 @@ data class FreeCurrencyState(
         zAR = 0.00
     )),
     val isLoading: Boolean = false,
-    val error: String = ""
+    val error: String = "",
+    val updateTimeSec: Int = 10
 )

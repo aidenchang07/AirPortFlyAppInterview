@@ -30,8 +30,10 @@ fun AirPortFlyItem(
     Card(
         modifier = Modifier
             .padding(
-                horizontal = 16.dp,
-                vertical = 8.dp
+                start = 16.dp,
+                top = 0.dp,
+                end = 16.dp,
+                bottom = 16.dp
             ),
         elevation = CardDefaults.cardElevation(1.dp)
     ) {
