@@ -3,6 +3,7 @@ package com.adncoding.airportflyappinterview
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -81,8 +82,9 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     }
-                ) { it
+                ) { innerPadding ->
                     NavHost(
+                        modifier = Modifier.padding(innerPadding),
                         navController = navController,
                         startDestination = Screen.AirPortFlyScreen.route
                     ) {

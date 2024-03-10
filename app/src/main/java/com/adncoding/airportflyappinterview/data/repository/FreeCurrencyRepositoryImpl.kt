@@ -17,11 +17,11 @@ import javax.inject.Inject
 class FreeCurrencyRepositoryImpl @Inject constructor(
     private val api: FreeCurrencyApi
 ): FreeCurrencyRepository {
-    override fun getFreeCurrency(): Flow<Resource<FreeCurrency>> = flow {
+    override fun getFreeCurrency(baseCurrency: String): Flow<Resource<FreeCurrency>> = flow {
         emit(Resource.Loading())
 
         runCatching {
-            api.getFreeCurrencyLatest()
+            api.getFreeCurrencyLatest(baseCurrency = baseCurrency)
         }.onSuccess { result ->
             emit(Resource.Success(result.toFreeCurrency()))
         }.onFailure { exception ->

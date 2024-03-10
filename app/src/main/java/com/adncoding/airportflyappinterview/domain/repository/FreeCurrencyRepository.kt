@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
  * Created by AidenChang 2024/03/05
  */
 interface FreeCurrencyRepository {
-    fun getFreeCurrency(): Flow<Resource<FreeCurrency>>
+    fun getFreeCurrency(baseCurrency: String): Flow<Resource<FreeCurrency>>
 }
