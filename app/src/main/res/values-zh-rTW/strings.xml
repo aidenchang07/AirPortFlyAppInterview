@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="plane_takeoff">起飛班機</string>
+    <string name="plane_takeoff">出發班機</string>
     <string name="plane_landing">抵達班機</string>
     <string name="flight">航班</string>
     <string name="currency">匯率</string>
