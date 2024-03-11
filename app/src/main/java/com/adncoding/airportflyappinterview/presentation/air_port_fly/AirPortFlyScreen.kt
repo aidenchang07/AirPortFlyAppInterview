@@ -60,11 +60,11 @@ fun AirPortFlyScreen(
         when (selectedTabIndex) {
             AirPortFlyTabs.Takeoff.ordinal -> {
                 Log.v("testLaunchedEffect", "is Takeoff")
-                viewModel.loadData(FlyType.ARRIVAL)
+                viewModel.loadData(FlyType.DEPARTURE)
             }
             AirPortFlyTabs.Landing.ordinal -> {
                 Log.v("testLaunchedEffect", "is Landing")
-                viewModel.loadData(FlyType.DEPARTURE)
+                viewModel.loadData(FlyType.ARRIVAL)
             }
         }
     }
@@ -121,14 +121,14 @@ fun AirPortFlyScreen(
                     ) {
                         when (pageIndex) {
                             AirPortFlyTabs.Takeoff.ordinal -> {
-                                items(state.airPortFlyArrivalItems) { airPortFly ->
+                                items(state.airPortFlyDepartureItems) { airPortFly ->
                                     AirPortFlyItem(
                                         airPortFly = airPortFly
                                     )
                                 }
                             }
                             AirPortFlyTabs.Landing.ordinal -> {
-                                items(state.airPortFlyDepartureItems) { airPortFly ->
+                                items(state.airPortFlyArrivalItems) { airPortFly ->
                                     AirPortFlyItem(
                                         airPortFly = airPortFly
                                     )

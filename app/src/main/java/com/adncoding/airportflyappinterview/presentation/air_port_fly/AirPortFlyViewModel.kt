@@ -42,8 +42,8 @@ class AirPortFlyViewModel @Inject constructor(
                     delay(1000)
                     _state.value = _state.value.copy(updateTimeSec = _state.value.updateTimeSec - 1)
                 }
-                loadData(FlyType.ARRIVAL, true)
                 loadData(FlyType.DEPARTURE, true)
+                loadData(FlyType.ARRIVAL, true)
             }
         }
     }
@@ -78,17 +78,17 @@ class AirPortFlyViewModel @Inject constructor(
 
     private fun airPortFlyStateSelector(result: Resource<List<AirPortFly>>, flyType: String): AirPortFlyState {
         return when (flyType) {
-            FlyType.ARRIVAL -> {
-                _state.value.copy(
-                    isLoading = false,
-                    airPortFlyArrivalItems = result.data ?: emptyList(),
-                    error = ""
-                )
-            }
             FlyType.DEPARTURE -> {
                 _state.value.copy(
                     isLoading = false,
                     airPortFlyDepartureItems = result.data ?: emptyList(),
+                    error = ""
+                )
+            }
+            FlyType.ARRIVAL -> {
+                _state.value.copy(
+                    isLoading = false,
+                    airPortFlyArrivalItems = result.data ?: emptyList(),
                     error = ""
                 )
             }
@@ -100,8 +100,8 @@ class AirPortFlyViewModel @Inject constructor(
 
     fun cleanData() {
         _state.value = _state.value.copy(
-            airPortFlyArrivalItems = emptyList(),
-            airPortFlyDepartureItems = emptyList()
+            airPortFlyDepartureItems = emptyList(),
+            airPortFlyArrivalItems = emptyList()
         )
     }
 }
