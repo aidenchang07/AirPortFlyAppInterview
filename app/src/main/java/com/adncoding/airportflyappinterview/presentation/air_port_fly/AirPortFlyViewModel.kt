@@ -41,8 +41,17 @@ class AirPortFlyViewModel @Inject constructor(
                     delay(1000)
                     _state.value = _state.value.copy(updateTimeSec = _state.value.updateTimeSec - 1)
                 }
-                loadData(FlyType.DEPARTURE.type, true)
-                loadData(FlyType.ARRIVAL.type, true)
+                when (_state.value.selectedTabIndex) {
+                    FlyType.DEPARTURE.ordinal -> {
+                        loadData(FlyType.DEPARTURE.type, true)
+                        Log.v("testUpdate", "FlyType.DEPARTURE")
+                    }
+                    FlyType.ARRIVAL.ordinal -> {
+                        loadData(FlyType.ARRIVAL.type, true)
+                        Log.v("testUpdate", "FlyType.ARRIVAL")
+                    }
+                    else -> throw RuntimeException("selectedTabIndex: ${_state.value.selectedTabIndex}")
+                }
             }
         }
     }
@@ -102,5 +111,9 @@ class AirPortFlyViewModel @Inject constructor(
             airPortFlyDepartureItems = emptyList(),
             airPortFlyArrivalItems = emptyList()
         )
+    }
+
+    fun updateSelectedTabIndex(index: Int) {
+        _state.value = _state.value.copy(selectedTabIndex = index)
     }
 }

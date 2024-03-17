@@ -10,5 +10,6 @@ data class AirPortFlyState(
     val airPortFlyDepartureItems: List<AirPortFly> = emptyList(),
     val isLoading: Boolean = false,
     val error: String = "",
-    val updateTimeSec: Int = 10
+    val updateTimeSec: Int = 10,
+    val selectedTabIndex: Int = FlyType.DEPARTURE.ordinal
 )

@@ -56,6 +56,7 @@ fun AirPortFlyScreen(
     val selectedTabIndex by remember { derivedStateOf { pagerState.currentPage } }
 
     LaunchedEffect(selectedTabIndex) {
+        viewModel.updateSelectedTabIndex(selectedTabIndex)
         when (selectedTabIndex) {
             FlyType.DEPARTURE.ordinal -> {
                 Log.v("testLaunchedEffect", "is Departure")
