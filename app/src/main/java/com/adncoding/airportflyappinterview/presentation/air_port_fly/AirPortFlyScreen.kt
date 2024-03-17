@@ -34,7 +34,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.adncoding.airportflyappinterview.common.FlyType
 import com.adncoding.airportflyappinterview.presentation.air_port_fly.components.AirPortFlyItem
 import kotlinx.coroutines.launch
 
@@ -58,13 +57,13 @@ fun AirPortFlyScreen(
 
     LaunchedEffect(selectedTabIndex) {
         when (selectedTabIndex) {
-            AirPortFlyTabs.Takeoff.ordinal -> {
-                Log.v("testLaunchedEffect", "is Takeoff")
-                viewModel.loadData(FlyType.DEPARTURE)
+            FlyType.DEPARTURE.ordinal -> {
+                Log.v("testLaunchedEffect", "is Departure")
+                viewModel.loadData(FlyType.DEPARTURE.type)
             }
-            AirPortFlyTabs.Landing.ordinal -> {
-                Log.v("testLaunchedEffect", "is Landing")
-                viewModel.loadData(FlyType.ARRIVAL)
+            FlyType.ARRIVAL.ordinal -> {
+                Log.v("testLaunchedEffect", "is Arrival")
+                viewModel.loadData(FlyType.ARRIVAL.type)
             }
         }
     }
@@ -120,14 +119,14 @@ fun AirPortFlyScreen(
                         state = lazyListState
                     ) {
                         when (pageIndex) {
-                            AirPortFlyTabs.Takeoff.ordinal -> {
+                            FlyType.DEPARTURE.ordinal -> {
                                 items(state.airPortFlyDepartureItems) { airPortFly ->
                                     AirPortFlyItem(
                                         airPortFly = airPortFly
                                     )
                                 }
                             }
-                            AirPortFlyTabs.Landing.ordinal -> {
+                            FlyType.ARRIVAL.ordinal -> {
                                 items(state.airPortFlyArrivalItems) { airPortFly ->
                                     AirPortFlyItem(
                                         airPortFly = airPortFly

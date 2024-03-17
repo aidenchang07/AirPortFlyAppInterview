@@ -5,7 +5,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.adncoding.airportflyappinterview.common.FlyType
 import com.adncoding.airportflyappinterview.common.Resource
 import com.adncoding.airportflyappinterview.domain.model.AirPortFly
 import com.adncoding.airportflyappinterview.domain.use_case.GetAirPortFly
@@ -26,8 +25,8 @@ class AirPortFlyViewModel @Inject constructor(
     private val _state = mutableStateOf(AirPortFlyState())
     val state: State<AirPortFlyState> = _state
     private val isDataLoaded = mutableMapOf<String, Boolean>().apply {
-        put(FlyType.ARRIVAL, false)
-        put(FlyType.DEPARTURE, false)
+        put(FlyType.DEPARTURE.type, false)
+        put(FlyType.ARRIVAL.type, false)
     }
 
     init {
@@ -42,8 +41,8 @@ class AirPortFlyViewModel @Inject constructor(
                     delay(1000)
                     _state.value = _state.value.copy(updateTimeSec = _state.value.updateTimeSec - 1)
                 }
-                loadData(FlyType.DEPARTURE, true)
-                loadData(FlyType.ARRIVAL, true)
+                loadData(FlyType.DEPARTURE.type, true)
+                loadData(FlyType.ARRIVAL.type, true)
             }
         }
     }
@@ -78,14 +77,14 @@ class AirPortFlyViewModel @Inject constructor(
 
     private fun airPortFlyStateSelector(result: Resource<List<AirPortFly>>, flyType: String): AirPortFlyState {
         return when (flyType) {
-            FlyType.DEPARTURE -> {
+            FlyType.DEPARTURE.type -> {
                 _state.value.copy(
                     isLoading = false,
                     airPortFlyDepartureItems = result.data ?: emptyList(),
                     error = ""
                 )
             }
-            FlyType.ARRIVAL -> {
+            FlyType.ARRIVAL.type -> {
                 _state.value.copy(
                     isLoading = false,
                     airPortFlyArrivalItems = result.data ?: emptyList(),
