@@ -45,7 +45,7 @@ import kotlinx.coroutines.launch
 fun AirPortFlyScreen(
     viewModel: AirPortFlyViewModel = hiltViewModel()
 ) {
-    val state = viewModel.state.value
+    val state by viewModel.state
     val scope = rememberCoroutineScope()
     val lazyListState = rememberLazyListState()
     val pagerState = rememberPagerState(
