@@ -17,6 +17,7 @@ Jectpack Compose / MVVM / Clean Architecture / Flow / Coroutine / Retrofit / Dag
 ## Demo
 - [Youtube 2024/02/29](https://www.youtube.com/watch?v=M6xBn2mIQ_o)
 
-![Air Port](./docs/app_air_port.png)
-
-![Free Currency](./docs/app_free_currency.png)
+<p align="left">
+  <img src="./docs/app_air_port.png" width="300" />
+  <img src="./docs/app_free_currency.png" width="300" />
+</p>
